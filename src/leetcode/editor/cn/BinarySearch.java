@@ -43,7 +43,7 @@ class Solution {
         int m;
         int head=0;
         int tail=nums.length-1;
-        do {
+        while (head <= tail){
             m = (head + tail) / 2;
             if (target == nums[m]) {
                 return m;
@@ -52,7 +52,7 @@ class Solution {
             } else {
                 head = m+1;
             }
-        } while (head <= tail);
+        }
         return -1;
     }
 }
