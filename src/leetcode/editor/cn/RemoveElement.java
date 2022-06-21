@@ -64,15 +64,14 @@ public class RemoveElement {
     //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int removeElement(int[] nums, int val) {
-        int steps=0;
+        int p=0;
         for(int i=0;i<nums.length;i++) {
-            if(nums[i]==val) {
-                steps++;
-            } else {
-                nums[i-steps]=nums[i];
+            if(nums[i]!=val) {
+                nums[p]=nums[i];
+                p++;
             }
         }
-        return nums.length-steps;
+        return p;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
