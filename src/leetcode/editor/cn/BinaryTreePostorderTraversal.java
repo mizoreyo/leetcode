@@ -39,8 +39,7 @@
 
 package leetcode.editor.cn;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class BinaryTreePostorderTraversal {
     public static void main(String[] args) {
@@ -64,18 +63,20 @@ public class BinaryTreePostorderTraversal {
     class Solution {
         public List<Integer> postorderTraversal(TreeNode root) {
             List<Integer> ans=new ArrayList<>();
-            traversal(root,ans);
+            Deque<TreeNode> stack=new ArrayDeque<>();
+            stack.push(root);
+            while (!stack.isEmpty()) {
+                TreeNode node=stack.pop();
+                ans.add(node.val);
+                if(node.left!=null)
+                    stack.push(node.left);
+                if(node.right!=null)
+                    stack.push(node.right);
+            }
+            Collections.reverse(ans);
             return ans;
         }
 
-        public void traversal(TreeNode node, List<Integer> ans) {
-            if(node==null) {
-                return;
-            }
-            traversal(node.left,ans);
-            traversal(node.right,ans);
-            ans.add(node.val);
-        }
 
     }
 //leetcode submit region end(Prohibit modification and deletion)
