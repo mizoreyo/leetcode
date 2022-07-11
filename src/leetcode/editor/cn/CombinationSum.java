@@ -61,19 +61,19 @@ class Solution {
     }
 
     public void dfs(int[] candidates,int target,int idx,List<List<Integer>> ans,List<Integer> combine) {
-        if(idx==candidates.length) {
-            return;
-        } else if(target==0) {
+        if(target==0) {
             ans.add(new ArrayList<>(combine));
             return;
         }
-
-        if(target-candidates[idx]>=0) {
-            combine.add(candidates[idx]);
-            dfs(candidates,target-candidates[idx],idx,ans,combine);
+        for(int i=idx;i<candidates.length;i++) {
+            if(target-candidates[i]<0)
+                continue;
+            target-=candidates[i];
+            combine.add(candidates[i]);
+            dfs(candidates,target,i,ans,combine);
+            target+=candidates[i];
             combine.remove(combine.size()-1);
         }
-        dfs(candidates,target,idx+1,ans,combine);
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
