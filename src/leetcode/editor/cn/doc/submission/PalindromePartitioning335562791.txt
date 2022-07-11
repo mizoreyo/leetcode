@@ -1,0 +1,38 @@
+class Solution {
+    public List<List<String>> partition(String s) {
+        List<List<String>> ans=new ArrayList<>();
+        List<String> cs=new ArrayList<>();
+        backtracking(s,ans,cs);
+        return ans;
+    }
+
+    public void backtracking(String s,List<List<String>> ans,List<String> cs) {
+        if("".equals(s)) {
+            ans.add(new ArrayList<>(cs));
+            return;
+        }
+        for(int i=0;i<s.length();i++) {
+            String part=s.substring(0,i+1);
+            if(!isPalindromic(part))
+                return;
+            cs.add(part);
+            backtracking(s.substring(i+1),ans,cs);
+            cs.remove(cs.size()-1);
+        }
+    }
+
+    public boolean isPalindromic(String s) {
+        for(int i=0;i<s.length()/2;i++) {
+            if(s.charAt(i)!=s.charAt(s.length()-i-1))
+                return false;
+        }
+        return true;
+    }
+
+}
+
+//total_testcases:32
+//total_correct:24
+//input_formatted:"efe"
+//expected_output:[["e","f","e"],["efe"]]
+//code_output:[["e","f","e"]]
