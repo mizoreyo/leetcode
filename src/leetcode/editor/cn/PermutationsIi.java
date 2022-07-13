@@ -31,6 +31,7 @@
 
 package leetcode.editor.cn;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PermutationsIi {
@@ -40,6 +41,8 @@ public class PermutationsIi {
     //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public List<List<Integer>> permuteUnique(int[] nums) {
+        List<List<Integer>> ans = new ArrayList<>();
+        List<Integer> per = new ArrayList<>();
         return null;
     }
 }
