@@ -1,0 +1,39 @@
+class Solution {
+
+    private HashMap<Integer,Boolean> used=new HashMap<>();
+
+    public List<List<Integer>> findSubsequences(int[] nums) {
+        List<List<Integer>> ans=new ArrayList<>();
+        List<Integer> child=new ArrayList<>();
+        backtracking(nums,0,ans,child);
+        return ans;
+    }
+
+    public void backtracking(int[] nums,int start,List<List<Integer>> ans,List<Integer> child) {
+        if(start== nums.length) {
+            return;
+        }
+        for(int i=start;i< nums.length;i++) {
+            boolean beforeSame=false;
+            for(int j=start;j<i;j++) {
+                if(nums[j]==nums[i]) {
+                    beforeSame = true;
+                    break;
+                }
+            }
+            if (beforeSame)
+                continue;
+            if(!child.isEmpty()&&child.get(child.size()-1)>nums[i]) {
+                continue;
+            }
+            child.add(nums[i]);
+            if(child.size()>=2)
+                ans.add(new ArrayList<>(child));
+            backtracking(nums,i+1,ans,child);
+            child.remove(child.size()-1);
+        }
+    }
+}
+
+//runtime:3 ms
+//memory:47.1 MB
