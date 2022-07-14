@@ -51,27 +51,24 @@ class Solution {
     public List<List<Integer>> permute(int[] nums) {
         List<List<Integer>> ans=new ArrayList<>();
         List<Integer> per=new ArrayList<>();
-        dfs(ans,per,nums,0);
+        int[] used=new int[nums.length];
+        dfs(ans,per,nums,used);
         return ans;
     }
 
-    public void dfs(List<List<Integer>> ans,List<Integer> per,int[] nums,int i) {
-        if(i==nums.length-1) {
-            per.add(nums[i]);
+    public void dfs(List<List<Integer>> ans,List<Integer> per,int[] nums,int[] used) {
+        if(per.size()==nums.length) {
             ans.add(new ArrayList<>(per));
-            per.remove(per.size()-1);
             return;
         }
-        for(int j=i;j< nums.length;j++) {
-            int tmp=nums[i];
-            nums[i]=nums[j];
-            nums[j]=tmp;
-            per.add(nums[i]);
-            dfs(ans,per,nums,i+1);
-            int tmp1=nums[i];
-            nums[i]=nums[j];
-            nums[j]=tmp1;
-            per.remove(per.size()-1);
+        for(int i=0;i<nums.length;i++) {
+            if(used[i]==0) {
+                per.add(nums[i]);
+                used[i]=1;
+                dfs(ans,per,nums,used);
+                per.remove(per.size()-1);
+                used[i]=0;
+            }
         }
     }
 }
