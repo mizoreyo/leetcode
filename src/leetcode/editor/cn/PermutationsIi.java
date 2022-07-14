@@ -32,6 +32,7 @@
 package leetcode.editor.cn;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class PermutationsIi {
@@ -41,9 +42,30 @@ public class PermutationsIi {
     //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public List<List<Integer>> permuteUnique(int[] nums) {
-        List<List<Integer>> ans = new ArrayList<>();
-        List<Integer> per = new ArrayList<>();
-        return null;
+        Arrays.sort(nums);
+        List<List<Integer>> ans=new ArrayList<>();
+        List<Integer> per=new ArrayList<>();
+        int[] used=new int[nums.length];
+        dfs(ans,per,nums,used);
+        return ans;
+    }
+
+    public void dfs(List<List<Integer>> ans,List<Integer> per,int[] nums,int[] used) {
+        if(per.size()==nums.length) {
+            ans.add(new ArrayList<>(per));
+            return;
+        }
+        for(int i=0;i<nums.length;i++) {
+            if(i-1>=0&&nums[i]==nums[i-1]&&used[i-1]==0)
+                continue;
+            if(used[i]==0) {
+                per.add(nums[i]);
+                used[i]=1;
+                dfs(ans,per,nums,used);
+                per.remove(per.size()-1);
+                used[i]=0;
+            }
+        }
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
